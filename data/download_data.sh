@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Install 7z
+# Requires 7z to be installed
 echo "Checking for 7z (might require installation)..."
 
-if sudo apt-get install p7zip-full -y; then
+if ! command -v 7z &> /dev/null; then
     echo "7z found/installed"
 else
     echo "Failed: Please install 7z (https://www.7-zip.org/7z.html)"
