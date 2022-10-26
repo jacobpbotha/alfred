@@ -25,7 +25,6 @@ from ..utils.video_util import VideoSaver
 # sys.path.append(os.path.join(os.environ['ALFRED_ROOT'], 'gen'))
 
 
-
 # params
 RAW_IMAGES_FOLDER = "raw_images/"
 DATA_JSON_FILENAME = "traj_data.json"

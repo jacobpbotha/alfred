@@ -23,7 +23,6 @@ all_scene_numbers = sorted(constants.TRAIN_SCENE_NUMBERS + constants.TEST_SCENE_
 
 
 def get_obj(env, open_test_objs, reachable_points, agent_height, scene_name, good_obj_point):
-
     # Reset the scene to put all the objects back where they started.
     env.reset(scene_name,
               render_image=False,

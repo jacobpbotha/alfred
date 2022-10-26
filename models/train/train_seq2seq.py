@@ -14,7 +14,6 @@ from ..utils.helper_utils import optimizer_to
 # sys.path.append(os.path.join(os.environ['ALFRED_ROOT'], 'models'))
 
 
-
 if __name__ == "__main__":
     # parser
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)

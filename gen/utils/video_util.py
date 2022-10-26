@@ -10,8 +10,9 @@ class VideoSaver(object):
     def save(self, image_path, save_path):
         subprocess.call(
             [
-                "ffmpeg -r %d -pattern_type glob -y -i '%s' -c:v libx264 -pix_fmt yuv420p '%s'"
-                % (self.frame_rate, image_path, save_path)
+                f"ffmpeg -r {self.frame_rate} -pattern_type glob -y -i '{image_path}' -c:v libx264 -pix_fmt yuv420p '{save_path}'"
             ],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
             shell=True,
         )

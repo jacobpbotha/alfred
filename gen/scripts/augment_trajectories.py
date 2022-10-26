@@ -8,6 +8,7 @@ import shutil
 import sys
 import threading
 import time
+from time import sleep
 
 import cv2
 import numpy as np
@@ -16,12 +17,6 @@ from ...env.thor_env import ThorEnv
 from .. import constants
 from ..utils.py_util import walklevel
 from ..utils.video_util import VideoSaver
-
-# sys.path.append(os.path.join(os.environ["ALFRED_ROOT"]))
-# sys.path.append(os.path.join(os.environ["ALFRED_ROOT"], "gen"))
-
-
-
 
 TRAJ_DATA_JSON_FILENAME = "traj_data.json"
 AUGMENTED_TRAJ_DATA_JSON_FILENAME = "augmented_traj_data.json"
@@ -91,7 +86,7 @@ def clear_and_create_dir(path):
     os.mkdir(path)
 
 
-def augment_traj(env, json_file):
+def augment_traj(env, json_file, args):
     # load json data
     with open(json_file) as f:
         traj_data = json.load(f)
@@ -122,9 +117,10 @@ def augment_traj(env, json_file):
     scene_name = "FloorPlan%d" % scene_num
     env.reset(scene_name)
     env.restore_scene(object_poses, object_toggles, dirty_and_empty)
+    sleep(0.4)
 
     env.step(dict(traj_data["scene"]["init_action"]))
-    print("Task: %s" % (traj_data["template"]["task_desc"]))
+    # print("Task: %s" % (traj_data["template"]["task_desc"]))
 
     # setup task
     env.set_task(traj_data, args, reward_type="dense")
@@ -271,15 +267,11 @@ def augment_traj(env, json_file):
 
     # check if number of new images is the same as the number of original images
     if args.smooth_nav and args.time_delays:
-        orig_img_count = get_image_index(high_res_images_dir)
-        new_img_count = get_image_index(orig_images_dir)
-        print(
-            "Original Image Count %d, New Image Count %d"
-            % (orig_img_count, new_img_count)
-        )
-        if orig_img_count != new_img_count:
-            raise Exception(
-                "WARNING: the augmented sequence length doesn't match the original"
+        new_img_count = get_image_index(high_res_images_dir)
+        orig_img_count = get_image_index(orig_images_dir)
+        if orig_img_count != 0 and orig_img_count != new_img_count:
+            print(
+                f"Original Image Count {orig_img_count}, New Image Count {new_img_count}, trajectory: {json_file}"
             )
 
 
@@ -297,7 +289,7 @@ def run():
 
         print("Augmenting: " + json_file)
         try:
-            augment_traj(env, json_file)
+            augment_traj(env, json_file, args)
         except Exception as e:
             import traceback
 
@@ -315,37 +307,38 @@ def run():
         print(skipped_files)
 
 
-traj_list = []
-lock = threading.Lock()
+if __name__ == "__main__":
+    traj_list = []
+    lock = threading.Lock()
 
-# parse arguments
-parser = argparse.ArgumentParser()
-parser.add_argument("--data_path", type=str, default="data/2.1.0")
-parser.add_argument("--smooth_nav", dest="smooth_nav", action="store_true")
-parser.add_argument("--time_delays", dest="time_delays", action="store_true")
-parser.add_argument("--shuffle", dest="shuffle", action="store_true")
-parser.add_argument("--num_threads", type=int, default=1)
-parser.add_argument(
-    "--reward_config", type=str, default="../models/config/rewards.json"
-)
-args = parser.parse_args()
+    # parse arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data_path", type=str, default="data/2.1.0")
+    parser.add_argument("--smooth_nav", dest="smooth_nav", action="store_true")
+    parser.add_argument("--time_delays", dest="time_delays", action="store_true")
+    parser.add_argument("--shuffle", dest="shuffle", action="store_true")
+    parser.add_argument("--num_threads", type=int, default=1)
+    parser.add_argument(
+        "--reward_config", type=str, default="../models/config/rewards.json"
+    )
+    args = parser.parse_args()
 
-# make a list of all the traj_data json files
-for dir_name, subdir_list, file_list in walklevel(args.data_path, level=3):
-    if "trial_" in dir_name:
-        json_file = os.path.join(dir_name, TRAJ_DATA_JSON_FILENAME)
-        if not os.path.isfile(json_file) or "tests" in dir_name:
-            continue
-        traj_list.append(json_file)
+    # make a list of all the traj_data json files
+    for dir_name, subdir_list, file_list in walklevel(args.data_path, level=3):
+        if "trial_" in dir_name:
+            json_file = os.path.join(dir_name, TRAJ_DATA_JSON_FILENAME)
+            if not os.path.isfile(json_file) or "tests" in dir_name:
+                continue
+            traj_list.append(json_file)
 
-# random shuffle
-if args.shuffle:
-    random.shuffle(traj_list)
+    # random shuffle
+    if args.shuffle:
+        random.shuffle(traj_list)
 
-# start threads
-threads = []
-for n in range(args.num_threads):
-    thread = threading.Thread(target=run)
-    threads.append(thread)
-    thread.start()
-    time.sleep(1)
+    # start threads
+    threads = []
+    for n in range(args.num_threads):
+        thread = threading.Thread(target=run)
+        threads.append(thread)
+        thread.start()
+        time.sleep(1)

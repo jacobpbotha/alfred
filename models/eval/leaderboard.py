@@ -16,9 +16,6 @@ from .eval_task import EvalTask
 # sys.path.append(os.path.join(os.environ["ALFRED_ROOT"], "models"))
 
 
-
-
-
 class Leaderboard(EvalTask):
     """dump action-sequences for leaderboard eval."""
 

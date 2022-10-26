@@ -11,7 +11,6 @@ from ..nn.resnet import Resnet
 # sys.path.append(os.path.join(os.environ['ALFRED_ROOT'], 'models'))
 
 
-
 if __name__ == "__main__":
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
 
