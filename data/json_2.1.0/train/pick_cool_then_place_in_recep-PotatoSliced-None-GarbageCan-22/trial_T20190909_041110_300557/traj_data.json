@@ -2834,7 +2834,7 @@
                 },
                 "high_idx": 9,
                 "planner_action": {
-                    "action": "CoolObject",
+                    "action": "CloseObject",
                     "coordinateReceptacleObjectId": [
                         "Fridge",
                         [
