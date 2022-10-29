@@ -335,6 +335,11 @@ class PickHeatThenPlaceInRecepTask(BaseTask):
         pickupables = get_objects_with_name_and_prop(
             targets["object"], "pickupable", state.metadata
         )
+        heated_objects = [
+            obj["objectId"]
+            for obj in state.metadata["objects"]
+            if obj["ObjectTemperature"] == "Hot"
+        ]
 
         # check if object needs to be sliced
         if "Sliced" in targets["object"]:
@@ -350,9 +355,7 @@ class PickHeatThenPlaceInRecepTask(BaseTask):
             and p["objectId"] in r["receptacleObjectIds"]
         ]
         objs_heated = [
-            p["objectId"]
-            for p in pickupables
-            if p["objectId"] in self.env.heated_objects
+            p["objectId"] for p in pickupables if p["objectId"] in heated_objects
         ]
 
         # check if object is in the receptacle
@@ -393,6 +396,11 @@ class PickCoolThenPlaceInRecepTask(BaseTask):
         pickupables = get_objects_with_name_and_prop(
             targets["object"], "pickupable", state.metadata
         )
+        cooled_objects = [
+            obj["objectId"]
+            for obj in state.metadata["objects"]
+            if obj["ObjectTemperature"] == "Cold"
+        ]
 
         if "Sliced" in targets["object"]:
             ts += 1
@@ -407,9 +415,7 @@ class PickCoolThenPlaceInRecepTask(BaseTask):
             and p["objectId"] in r["receptacleObjectIds"]
         ]
         objs_cooled = [
-            p["objectId"]
-            for p in pickupables
-            if p["objectId"] in self.env.cooled_objects
+            p["objectId"] for p in pickupables if p["objectId"] in cooled_objects
         ]
 
         # check if object is in the receptacle
@@ -450,6 +456,11 @@ class PickCleanThenPlaceInRecepTask(BaseTask):
         pickupables = get_objects_with_name_and_prop(
             targets["object"], "pickupable", state.metadata
         )
+        cleaned_objects = [
+            obj["objectId"]
+            for obj in state.metadata["objects"]
+            if obj["isDirty"] is False and obj["dirtyable"] is True
+        ]
 
         if "Sliced" in targets["object"]:
             ts += 1
@@ -464,9 +475,7 @@ class PickCleanThenPlaceInRecepTask(BaseTask):
             and p["objectId"] in r["receptacleObjectIds"]
         ]
         objs_cleaned = [
-            p["objectId"]
-            for p in pickupables
-            if p["objectId"] in self.env.cleaned_objects
+            p["objectId"] for p in pickupables if p["objectId"] in cleaned_objects
         ]
 
         # check if object is in the receptacle
