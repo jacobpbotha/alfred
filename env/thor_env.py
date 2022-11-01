@@ -29,15 +29,17 @@ class ThorEnv(Controller):
         player_screen_width=constants.DETECTION_SCREEN_WIDTH,
         quality="MediumCloseFitShadows",
         build_path=constants.BUILD_PATH,
+        dummy=False,
     ):
 
         super().__init__(quality=quality)
         self.local_executable_path = build_path
-        self.start(
-            x_display=x_display,
-            player_screen_height=player_screen_height,
-            player_screen_width=player_screen_width,
-        )
+        if not dummy:
+            self.start(
+                x_display=x_display,
+                player_screen_height=player_screen_height,
+                player_screen_width=player_screen_width,
+            )
         self.task = None
 
         # internal states
