@@ -1,14 +1,18 @@
-import os
-import torch
-import numpy as np
-import nn.vnn as vnn
 import collections
+import os
+
+import nn.vnn as vnn
+import numpy as np
+import torch
+from gen.utils.image_util import decompress_mask
+from model.seq2seq import Module as Base
+from models.utils.metric import compute_exact
+from models.utils.metric import compute_f1
 from torch import nn
 from torch.nn import functional as F
-from torch.nn.utils.rnn import pad_sequence, pack_padded_sequence, pad_packed_sequence
-from model.seq2seq import Module as Base
-from models.utils.metric import compute_f1, compute_exact
-from gen.utils.image_util import decompress_mask
+from torch.nn.utils.rnn import pack_padded_sequence
+from torch.nn.utils.rnn import pad_packed_sequence
+from torch.nn.utils.rnn import pad_sequence
 
 
 class Module(Base):

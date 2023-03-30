@@ -1,4 +1,5 @@
 import numpy as np
+
 import alfred.gen.constants as constants
 
 def bbox_to_mask(bbox):

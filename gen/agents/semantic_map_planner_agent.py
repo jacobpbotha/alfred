@@ -1,6 +1,7 @@
 import glob
-import cv2
+
 import constants
+import cv2
 from agents.agent_base import AgentBase
 from agents.plan_agent import PlanAgent
 from game_states.planned_game_state import PlannedGameState
@@ -68,5 +69,3 @@ class SemanticMapPlannerAgent(AgentBase):
                 self.total_frame_count += 1
             else:
                 super(SemanticMapPlannerAgent, self).step(action)
-
-

@@ -3,14 +3,13 @@ import glob
 import random
 import time
 
+import constants
 import cv2
 import numpy as np
-
-import constants
 from graph import graph_obj
 from utils import game_util
-from utils.py_util import SetWithGet
 from utils.image_util import compress_mask
+from utils.py_util import SetWithGet
 
 
 class GameStateBase(object):

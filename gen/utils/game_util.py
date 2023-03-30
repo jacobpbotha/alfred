@@ -1,9 +1,10 @@
 import copy
 import random
+
 import cv2
-import numpy as np
 import gen.constants as constants
 import gen.goal_library as glib
+import numpy as np
 
 
 def get_pose(event):
@@ -373,5 +374,3 @@ def store_image_name(name):
     constants.data_dict['images'].append({"high_idx": get_last_hl_action_index(),
                                           "low_idx": get_last_ll_action_index(),
                                           "image_name": name})
-
-

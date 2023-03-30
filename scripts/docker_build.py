@@ -1,14 +1,12 @@
 #!/usr/bin/env python
-
 #########
 # Credit: https://github.com/RobotLocomotion/pytorch-dense-correspondence/blob/master/docker/docker_build.py
 #########
-
 from __future__ import print_function
 
 import argparse
-import os
 import getpass
+import os
 
 if __name__=="__main__":
 

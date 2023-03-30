@@ -1,12 +1,13 @@
-import os
-import random
-import json
-import torch
-import pprint
 import collections
+import json
+import os
+import pprint
+import random
+
 import numpy as np
-from torch import nn
+import torch
 from tensorboardX import SummaryWriter
+from torch import nn
 from tqdm import trange
 
 class Module(nn.Module):

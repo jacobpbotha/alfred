@@ -23,4 +23,3 @@ class DeterministicPlannerAgent(SemanticMapPlannerAgent):
 
     def get_reward(self):
         return 0, self.terminal
-

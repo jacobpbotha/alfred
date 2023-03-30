@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
+import argparse
+import getpass
+import os
+import socket
+
+import yaml
 #########
 # Credit: https://github.com/RobotLocomotion/pytorch-dense-correspondence/blob/master/docker/docker_run.py
 #########
-
-import argparse
-import os
-import socket
-import getpass
-import yaml
 
 if __name__=="__main__":
     user_name = getpass.getuser()

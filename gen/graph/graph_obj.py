@@ -2,10 +2,9 @@ import os
 import random
 import time
 
+import constants
 import networkx as nx
 import numpy as np
-
-import constants
 from gen.utils import game_util
 
 MAX_WEIGHT_IN_GRAPH = 1e5
@@ -423,4 +422,3 @@ if __name__ == '__main__':
             print('made it')
         else:
             print('could not make it :(')
-

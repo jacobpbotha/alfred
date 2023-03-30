@@ -3,7 +3,6 @@
 # {obj} - ObjectStr
 # {recep} - RecepStr
 # usage: .format(obj=constants.OBJECTS[self.object_target], recep=constants.OBJECTS[self.parent_target])
-
 # NOTE: order of and/or conditions matters
 #########################################
 

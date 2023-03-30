@@ -1,13 +1,11 @@
 #!/usr/bin/env python
-
-
-import subprocess
-import shlex
-import re
-import platform
-import tempfile
 import os
+import platform
+import re
+import shlex
+import subprocess
 import sys
+import tempfile
 
 def pci_records():
     records = []

@@ -1,10 +1,11 @@
-import os
 import json
-import numpy as np
-from PIL import Image
+import os
 from datetime import datetime
-from eval import Eval
+
+import numpy as np
 from env.thor_env import ThorEnv
+from eval import Eval
+from PIL import Image
 
 class EvalTask(Eval):
     '''
@@ -221,4 +222,3 @@ class EvalTask(Eval):
         save_path = os.path.join(save_path, 'task_results_' + self.args.eval_split + '_' + datetime.now().strftime("%Y%m%d_%H%M%S_%f") + '.json')
         with open(save_path, 'w') as r:
             json.dump(results, r, indent=4, sort_keys=True)
-

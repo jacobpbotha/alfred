@@ -1,8 +1,8 @@
+import os
 import random
 import re
-import time
-import os
 import string
+import time
 
 
 def get_time_str():

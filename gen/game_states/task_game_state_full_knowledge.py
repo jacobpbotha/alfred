@@ -1,5 +1,6 @@
 import copy
 import sys
+
 import constants
 import numpy as np
 from game_states.game_state_base import GameStateBase

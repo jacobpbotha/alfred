@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
-from torchvision import models, transforms
+from torchvision import models
+from torchvision import transforms
 
 
 class Resnet18(object):

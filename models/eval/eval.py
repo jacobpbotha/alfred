@@ -2,11 +2,13 @@ import json
 import pprint
 import random
 import time
+from importlib import import_module
+
 import torch
 import torch.multiprocessing as mp
 from models.nn.resnet import Resnet
+
 from data.preprocess import Dataset
-from importlib import import_module
 
 class Eval(object):
 

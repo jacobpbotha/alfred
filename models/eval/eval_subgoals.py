@@ -1,11 +1,12 @@
+import json
 import os
 import sys
-import json
-import numpy as np
-from PIL import Image
 from datetime import datetime
+
+import numpy as np
 from env.thor_env import ThorEnv
 from eval import Eval
+from PIL import Image
 
 
 class EvalSubgoals(Eval):

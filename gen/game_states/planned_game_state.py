@@ -1,12 +1,13 @@
 import copy
 import json
 import os
+from abc import ABC
+
 import constants
 from game_states.game_state_base import GameStateBase
 from planner import ff_planner_handler
 from utils import game_util
 from utils import py_util
-from abc import ABC
 
 
 class PlannedGameState(GameStateBase, ABC):
